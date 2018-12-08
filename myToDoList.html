@@ -1,0 +1,148 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .div1 {
+            border-radius: 20px;
+            display: flex;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.719)
+        }
+        
+        .inputdata {
+            border-radius: 10px;
+            width: 272px;
+            height: 20px;
+            position: relative;
+            margin-left: 5%;
+            margin-top: 1%;
+        }
+        
+        .p1 {
+            width: 200px;
+            font-size: 40px;
+            font-style: inherit;
+            left: 272 px;
+            position: relative;
+            margin-left: 35%;
+        }
+        
+        .addEvent {
+            color: aliceblue;
+            width: 40px;
+            height: 20px;
+            position: relative;
+            margin-top: 1%;
+        }
+        
+        .div2 {
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.479)
+        }
+        
+        .div3,
+        .div4 {
+            height: 200px;
+            width: 400px;
+            font-size: 40px;
+            font-style: inherit;
+            left: 272 px;
+            position: relative;
+            margin-left: 35%;
+            background-color: rgba(0, 0, 0, 0.548);
+            border-radius: 10px;
+            margin-top: 2px;
+        }
+        
+        .divTask {
+            height: 38px;
+            width: 400px;
+            font-size: 20px;
+            font-style: inherit;
+            margin-top: 2px;
+        }
+        
+        .selection {
+            position: relative;
+            left: 0;
+            margin-left: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1">
+        <p class="p1">MyToDoList</p>
+        <input type="text" class="inputdata" value="">
+        <div class="addevent">添加</div>
+    </div>
+    <div class="div2">
+        <div class="div3">Doing</div>
+        <div class="div4">Done</div>
+    </div>
+    <script>
+        var inputdata = document.getElementsByClassName('inputdata')[0];
+        var addevent = document.getElementsByClassName('addevent')[0];
+        var div3 = document.getElementsByClassName('div3')[0];
+        var div4 = document.getElementsByClassName('div4')[0];
+        addevent.addEventListener('click', addeventonclick);
+
+        function addeventonclick() {
+            var taskDate = new Date();
+            if (inputdata.value != '') {
+                var divTask = document.createElement('div');
+                div3.appendChild(divTask);
+                divTask.setAttribute('class', 'divTask');
+                divTask.textContent = inputdata.value;
+                divTask.style.backgroundColor = 'white';
+                divTask.style.borderRadius = '10px';
+
+
+                var select = document.createElement('input');
+                divTask.appendChild(select);
+                select.setAttribute('type', 'radio');
+                select.setAttribute('class', 'selection');
+                select.addEventListener('click', removeDivTask);
+
+                function removeDivTask() {
+                    var dateNow = new Date();
+                    divTask.style.display = 'none';
+                    div4.appendChild(divTask);
+                    divTask.style.display = 'block';
+                    pTime.textContent = dateNow.getHours() + ':' + dateNow.getMinutes() + ':' + dateNow.getSeconds();
+                }
+
+                pTime = document.createElement('p');
+                divTask.appendChild(pTime);
+                if (parseInt(taskDate.getMinutes()) > 10) {
+                    pTime.textContent = taskDate.getHours() + ":" + taskDate.getMinutes() + ':' + taskDate.getSeconds();
+                } else {
+                    pTime.textContent = taskDate.getHours() + ":" + '0' + taskDate.getMinutes() + ':' + taskDate.getSeconds();
+                }
+                pTime.style.fontSize = '12px';
+                pTime.style.fontStyle = 'inherit';
+                inputdata.value = '';
+
+            } else {
+                alert('请输入任务事件');
+
+            }
+            if (div3.childElementCount > 4) {
+                div4.style.marginTop = parseInt((div3.childElementCount - 4) * 40) + 'px';
+            }
+
+        }
+    </script>
+</body>
+
+</html>
