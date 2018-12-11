@@ -1,0 +1,142 @@
+对象：
+对象有属性以及方法，任何对象拥有一个属性以及方法的集合；
+eg: 
+var MrDeng = {
+	name : "MeDeng",   //属性
+	age : 40, 
+	sex : "male",
+	health : 100,
+	smok : function(){    //方法
+		console.log("I am smoking cool!");
+		this.health --; //<-- MrDeng.health --
+	},
+	drink : function(){
+		console.log("I am drinking cool!");
+		this.health --; //MrDeng.health --
+	},
+}
+属性的增、删、改、查：
+构造函数内部原理：
+1.在函数体的最前面隐式加上this={ }
+2.执行this.xxx = xxx；
+3.隐式的返回this 
+
+function Person (name,height){
+	var that = {};
+	that.name = 'xiaowang';
+	that.height = 180;
+	return that;
+}
+var person = Person();
+
+有new强制返回对象，原始值将会被自动忽略，
+
+原始值不能有属性以及方法，
+原始值不能有属性以及方法，但是在使用包装类是可以使其具有，
+var num = 4;
+
+num.len = 3;
+// new Number(4).len = 3;    delete
+//
+//new Number(4).len  -->undifined
+console.log(num.len);
+包装类 ：
+new String() / new Boolean() / new Number;
+
+原型链：
+原型：
+1、定义：原型是function对象的一个属性。它的定义了构造函数制造出的对象的公共祖先。
+	通过该构造函数产生的对象，可以继承该原型的数学和方法。原型也是对象。
+2. 利用原型的特点和概念，可以提取共有属性。
+3. 对象如何查看原型-->隐式属性__proto__
+4. 对象如何查看对象的构造函数-->constructor
+
+命名空间：
+管理变量，防止污染全局，适用于模块化开发；
+
+对象的枚举 enumeration 遍历:
+for in 循环 注意使用 obj[shuxing];
+hasOwnProperty 当前对象的所有属性； 返回值布尔值；
+in 操作符 返回值布尔值 要将对象转化成字符串进行判断 eg : 'height' in obj ; 
+instanceof：  --> A对象 是不是 B构造函数构造出来的 返回值为布尔值；
+		看A对象的原型链上有没有B的原型
+数组的构造函数constructor为Array ； 对象的constructor为object（）{}
+instanceof 可以用来区分数组以及对象；
+通过调用tostring方法区分；
+JavaScript语言中typeof可能返回的结果：
+布尔、数字、字符串、undefined、object、function//null返回的是object； 
+this :
+1.函数预编译过程中this指向Window；AO对象中会有实参列表以及this指向window；
+2.全局作用域里面this指向window；
+3.call、appy可以改变this指向
+4.obj.func()，谁调用，this就指向调用者obj；
+深层克隆：
+遍历对象（for（var prop in obj））
+1. 判断是不是原始值； //typeof() object;  
+2. 判断是数组还是对象；//instanceof tostring constructor
+3. 建立相应的数组或者对象；
+递归
+
+类数组：
+属性要为索引（数字）属性，必须要有length属性，最好加上push方法；
+
+try{
+}catch(e){console(e)  e-->e.message + e.name;
+}
+//在try里面发生的错误，不会执行错误后try里面的代码
+error.name的六种值对应的信息：
+1.EvalError:  eval()定义与使用不一致；
+2.RangeError: 数值越界
+3.ReferenceError:非法或不能识别的引用数值
+4.SyntaxError:发生语法解析错误
+5.TypeError:操作数类型错误
+6.URIError:URI处理函数使用不当
+
+es5严格模式：“use strict”; 使用在所用逻辑的最顶端
+浏览器基本基于es3.0的方法 + es5.0的新增方法 使用的；
+es3.0 和 es5.0产生冲突的部分
+es5.0严格模式 那么es3.0和es5.0产生冲突的部分就是用es5.0否则会使用es3.0的方法
+
+严格模式下不能使用arguments.callee ；
+不能有with（）{}
+
+DOM -->Document Object Model
+DOM定义了表示和修改文档所需的方法。DOM对象即为宿主对象，由浏览器厂商定义，
+用来操作HTML和xml功能的一类对象的集合。也有人称DOM是对HTML 以及XML的标
+准编程接口。
+
+window.onload 使用，可以将后面结构的元素使用；
+DomTree    CssTree 两者合成渲染树 renderTree
+具体标签解析过程，遇到标签先解析标签并将其挂上domtree上，onload过程在所有
+标签都解析结束之后再执行load过程函数。
+好处：广告可以放在里面，在所有解析过程都结束后并不会使得用户体验变差
+
+json json是一种数据传输格式，json --> { 对象 }前端与后端进行数据通信，拿json来进行
+两者都识别的数据通信，之前使用xml进行数据通信，但是xml可以自定义标签，过去传输数据
+的方式就是使用json，数据库的基础格式为xml，现在数据传输格式为对象，将其命名为json
+json对象的属性名必须加上双引号，eg:
+json -- > {
+	"name" : "hong",
+	"age" : "123"
+}
+
+JSON 静态类，类似于Math，有两种方法：JSON.stringify( );将JSON转化为字符串；
+ JSON.parse( );将JSON转化成的字符串转化为JSON对象，其与对象本质上一样的，但是
+用途上面有区别。一种是本地上使用的对象，一种是数据传输格式。
+
+浏览器内核会首先识别HTML代码，然后创建domTree（树形结构）绘制出DOM树，
+符合深度优先原则（遍历分支的所有子元素，结束后进行其他分支的遍历）
+上述过程为DOM元素解析，即解析完DOM元素，并不意味着DOM元素的加载完成。
+
+DomTree 形成完之后，等待CssTree形成，最后形成renderTree，然后浏览器才会真正
+地绘制页面，即浏览器会按照randertree进行绘制页面。
+
+页面性能优化主要就是避免DOM树的改变，这称为reflow 重排 dom节点的删除，添加
+dom节点的宽高变化，位置变化，display：none --> block offsetWidth offsetLeft
+
+repaint 重绘也会使其css树发生改变，进而使得randertree进行改变，也会使得效率降低
+
+异步加载js:三种方法
+①defer加载（IE9以下可以使用），等到所有DOM文件解析完才会执行，也可以将JS写在script里面
+②aysnc加载，W3C标准方法，只能加载外部脚本，不能把js写在script里面，
+③创建script，
