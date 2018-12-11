@@ -139,4 +139,4 @@ repaint 重绘也会使其css树发生改变，进而使得randertree进行改变，也会使得效率降低
 异步加载js:三种方法
 ①defer加载（IE9以下可以使用），等到所有DOM文件解析完才会执行，也可以将JS写在script里面
 ②aysnc加载，W3C标准方法，只能加载外部脚本，不能把js写在script里面，
-③创建script，
+③创建script。
